@@ -25,8 +25,3 @@ Weather app
 or
 
     $ gulp build
-
-
-### Run tests
-
-    $ gulp test

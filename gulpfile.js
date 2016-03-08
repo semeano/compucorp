@@ -27,7 +27,7 @@ gulp.task('build', ['clear', 'html:build'], function () {
 
 
 // Serve
-gulp.task('serve', ['clear:temp', 'sass', 'js', 'html:serve', 'watch'], function () {
+gulp.task('serve', ['clear:temp', 'sass', 'js', 'html:serve', 'font:serve', 'json:serve', 'watch'], function () {
   connect.server({
   	root: 'temp',
   	port: 8000,
@@ -58,11 +58,37 @@ gulp.task('clear:dist', function () {
 
 
 // CSS
-gulp.task('sass', function () {
+gulp.task('sass', ['css'], function () {
   return gulp.src('app/**/*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('temp'))
     .pipe(connect.reload());
+});
+gulp.task('css', function () {
+  return gulp.src('app/**/*.css')
+    .pipe(gulp.dest('temp'));
+});
+
+
+// JSON
+gulp.task('json:serve', function () {
+  return gulp.src('app/data/icons.json')
+    .pipe(gulp.dest('temp'));
+});
+gulp.task('json:build', function () {
+  return gulp.src('app/data/icons.json')
+    .pipe(gulp.dest('dist'));
+});
+
+
+// Font
+gulp.task('font:serve', function () {
+  return gulp.src('app/common/font/*.*')
+    .pipe(gulp.dest('temp/common/font'));
+});
+gulp.task('font:build', function () {
+  return gulp.src('app/common/font/*.*')
+    .pipe(gulp.dest('dist/font'));
 });
 
 
@@ -91,7 +117,7 @@ gulp.task('html:build', ['html:useref'], function () {
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('dist'));
 });
-gulp.task('html:useref', ['sass', 'js:build', 'html:serve'], function () {
+gulp.task('html:useref', ['sass', 'js:build', 'html:serve', 'font:build', 'json:build'], function () {
 	return gulp.src(['temp/**/*.html'])
 		.pipe(useref())
 		.pipe(gulpif('*.js', uglify()))
@@ -105,6 +131,6 @@ gulp.task('html:serve', ['html:bower'], function () {
 });
 gulp.task('html:bower', function () {
 	return gulp.src('app/index.html')
-		.pipe(wiredep({ ignorePath: '../../' }))
+		.pipe(wiredep({ ignorePath: '../' }))
     .pipe(gulp.dest('temp'));
 });

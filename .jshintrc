@@ -11,6 +11,7 @@
 	"node": true,
 	"globals": {
 		"angular": false,
-		"$": false
+		"$": false,
+		"_": false
 	}
 }
