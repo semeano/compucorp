@@ -1,0 +1,7 @@
+<div class="weather">
+	<p>{{ msg }}</p>
+	<form ng-show="showUserInput">
+		<input type="text" placeholder="City name or zip-code" ng-model="userInput" />
+		<button type="submit" ng-click="weatherCtrl.weatherFromInput()">Check weather</button>
+	</form>
+</div>

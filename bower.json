@@ -1,0 +1,19 @@
+{
+  "name": "compucorp",
+  "description": "Weather app",
+  "main": "",
+  "authors": [
+    "Pedro Semeano"
+  ],
+  "license": "MIT",
+  "private": true,
+  "appPath": "client/app",
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18",
+    "angular-loading-bar": "^0.8.0",
+    "angular-animate": "^1.5.0",
+    "angularjs-geolocation": "^0.1.1",
+    "angular-toastr": "^1.7.0"
+  }
+}
