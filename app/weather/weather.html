@@ -1,5 +1,7 @@
 <div class="weather">
 
+	<img src="img/geolocation.png">
+
 	<p>{{ msg }}</p>
 
 	<form ng-show="showUserInput">
@@ -9,7 +11,7 @@
 
 	<div class="weather-details" ng-show="showWeatherDetails">
 
-		<h3>{{ weather.name }}</h3>
+		<h1>{{ weather.name }}</h1>
 
 		<div ng-repeat="icon in weather.weather">
 			<i class="wi" ng-class="icon.icon" title="{{icon.description}}"></i>

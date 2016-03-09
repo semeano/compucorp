@@ -27,7 +27,7 @@ gulp.task('build', ['clear', 'html:build'], function () {
 
 
 // Serve
-gulp.task('serve', ['clear:temp', 'sass', 'js', 'html:serve', 'font:serve', 'json:serve', 'watch'], function () {
+gulp.task('serve', ['clear:temp', 'sass', 'js', 'html:serve', 'font:serve', 'img:serve', 'json:serve', 'watch'], function () {
   connect.server({
   	root: 'temp',
   	port: 8000,
@@ -111,13 +111,24 @@ gulp.task('ngannotate', function () {
 });
 
 
+// Images
+gulp.task('img:serve', function () {
+  return gulp.src('app/img/*.*')
+    .pipe(gulp.dest('temp/img'));
+});
+gulp.task('img:build', function () {
+  return gulp.src('app/img/*.*')
+    .pipe(gulp.dest('dist/img'));
+});
+
+
 // HTML
 gulp.task('html:build', ['html:useref'], function () {
 	return gulp.src(['dist/**/*.html'])
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('dist'));
 });
-gulp.task('html:useref', ['sass', 'js:build', 'html:serve', 'font:build', 'json:build'], function () {
+gulp.task('html:useref', ['sass', 'js:build', 'html:serve', 'font:build', 'img:build', 'json:build'], function () {
 	return gulp.src(['temp/**/*.html'])
 		.pipe(useref())
 		.pipe(gulpif('*.js', uglify()))

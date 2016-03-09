@@ -8,7 +8,8 @@
 
 	function WeatherCtrl($rootScope, $scope, WeatherSrv, geolocation, toastr) {
 
-		$scope.msg = 'Checking weather...';
+		$scope.msg = 'Getting your location...';
+		$scope.showGeoLocation = true;
 		$scope.showUserInput = false;
 		$scope.showWeatherDetails = false;
 
@@ -23,12 +24,14 @@
 
 		// Get weather data from browser geolocation API
 		function weatherFromLatLon(data) {
+		$scope.msg = 'Checking weather...';
 			WeatherSrv.get('lat=' + data.coords.latitude + '&lon=' + data.coords.longitude)
 				.then(weatherSuccess, weatherFailure);
   	}
 
   	// Get weather data from user input
   	function requestWeatherFromInput() {
+  		$scope.showGeoLocation = false;
   		$scope.msg = 'Please enter a city or zip-code followed by the country code (e.g.: 94040, us)';
   		$scope.showUserInput = true;
   	}
